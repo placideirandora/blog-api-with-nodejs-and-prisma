@@ -1,0 +1,13 @@
+{
+  "name": "blog-api-with-nodejs-and-prisma",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:placideirandora/blog-api-with-nodejs-and-prisma.git",
+  "author": "Placide IRANDORA <34879554+placiderapson@users.noreply.github.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^16.4.3",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  }
+}
