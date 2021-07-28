@@ -27,6 +27,26 @@ app.get(`/post/:id`, async (req, res) => {
   res.json(post);
 });
 
+app.post(`/user`, async (req, res) => {
+  const result = await prisma.user.create({
+    data: { ...req.body },
+  });
+  res.json(result);
+});
+
+app.post(`/post`, async (req, res) => {
+  const { title, content, authorId } = req.body;
+  const result = await prisma.post.create({
+    data: {
+      title,
+      content,
+      published: false,
+      authorId,
+    },
+  });
+  res.json(result);
+});
+
 app.listen(3000, () =>
   console.log('REST API server ready at: http://localhost:3000')
 );
