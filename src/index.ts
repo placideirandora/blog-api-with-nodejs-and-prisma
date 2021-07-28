@@ -6,7 +6,10 @@ const app = express();
 
 app.use(express.json());
 
-// ... your REST API routes will go here
+app.get('/users', async (req, res) => {
+  const users = await prisma.user.findMany();
+  res.json(users);
+});
 
 app.listen(3000, () =>
   console.log('REST API server ready at: http://localhost:3000')
