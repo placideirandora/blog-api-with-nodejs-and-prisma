@@ -1,2 +1,2 @@
-# blog-api-with-nodejs-and-prisma
-A Back-End REST Blog Web API
+# BLOG REST API (EXPRESS & PRISMA)
+A Simple Back-End REST API
