@@ -8,7 +8,8 @@ app.use(express.json());
 
 app.get('/users', async (req, res) => {
   const users = await prisma.user.findMany();
-  res.json(users);
+
+  return res.json(users);
 });
 
 app.get('/feed', async (req, res) => {
@@ -16,7 +17,8 @@ app.get('/feed', async (req, res) => {
     where: { published: true },
     include: { author: true },
   });
-  res.json(posts);
+
+  return res.json(posts);
 });
 
 app.get(`/post/:id`, async (req, res) => {
@@ -36,7 +38,8 @@ app.post(`/user`, async (req, res) => {
   const result = await prisma.user.create({
     data: { ...req.body },
   });
-  res.json(result);
+
+  return res.json(result);
 });
 
 app.post(`/post`, async (req, res) => {
@@ -49,7 +52,8 @@ app.post(`/post`, async (req, res) => {
       authorId,
     },
   });
-  res.json(result);
+
+  return res.status(201).json(result);
 });
 
 app.patch('/post/publish/:id', async (req, res) => {
@@ -83,7 +87,7 @@ app.delete(`/post/:id`, async (req, res) => {
       where: { id: Number(id) },
     });
 
-    res.json({ message: 'Post deleted' });
+    return res.json({ message: 'Post deleted' });
   }
 
   return res.status(404).json({ message: 'Post not found' });
