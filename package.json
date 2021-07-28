@@ -5,13 +5,21 @@
   "repository": "git@github.com:placideirandora/blog-api-with-nodejs-and-prisma.git",
   "author": "Placide IRANDORA <34879554+placiderapson@users.noreply.github.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "node .",
+    "dev": "nodemon"
+  },
   "devDependencies": {
+    "@types/express": "^4.17.13",
     "@types/node": "^16.4.3",
+    "nodemon": "^2.0.12",
     "prisma": "2.28.0",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@prisma/client": "2.28.0"
+    "@prisma/client": "2.28.0",
+    "express": "^4.17.1"
   }
 }
