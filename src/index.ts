@@ -47,6 +47,24 @@ app.post(`/post`, async (req, res) => {
   res.json(result);
 });
 
+app.patch('/post/publish/:id', async (req, res) => {
+  const { id } = req.params;
+  const post = await prisma.post.update({
+    where: { id: Number(id) },
+    data: { published: true },
+  });
+  
+  res.json(post);
+});
+
+app.delete(`/post/:id`, async (req, res) => {
+  const { id } = req.params;
+  await prisma.post.delete({
+    where: { id: Number(id) },
+  });
+  res.json({ message: 'Post deleted' });
+});
+
 app.listen(3000, () =>
   console.log('REST API server ready at: http://localhost:3000')
 );
