@@ -21,10 +21,15 @@ app.get('/feed', async (req, res) => {
 
 app.get(`/post/:id`, async (req, res) => {
   const { id } = req.params;
-  const post = await prisma.post.findUnique({
-    where: { id: Number(id) },
+  const posts = await prisma.post.findMany({
+    where: { id: Number(id), published: true },
   });
-  res.json(post);
+
+  if (posts.length) {
+    return res.json(posts[0]);
+  }
+
+  return res.status(404).json({ message: 'Post not found' });
 });
 
 app.post(`/user`, async (req, res) => {
@@ -49,20 +54,39 @@ app.post(`/post`, async (req, res) => {
 
 app.patch('/post/publish/:id', async (req, res) => {
   const { id } = req.params;
-  const post = await prisma.post.update({
+
+  const postExists = await prisma.post.findUnique({
     where: { id: Number(id) },
-    data: { published: true },
   });
-  
-  res.json(post);
+
+  if (postExists) {
+    const post = await prisma.post.update({
+      where: { id: Number(id) },
+      data: { published: true },
+    });
+
+    return res.json(post);
+  }
+
+  return res.status(404).json({ message: 'Post not found' });
 });
 
 app.delete(`/post/:id`, async (req, res) => {
   const { id } = req.params;
-  await prisma.post.delete({
+
+  const postExists = await prisma.post.findUnique({
     where: { id: Number(id) },
   });
-  res.json({ message: 'Post deleted' });
+
+  if (postExists) {
+    await prisma.post.delete({
+      where: { id: Number(id) },
+    });
+
+    res.json({ message: 'Post deleted' });
+  }
+
+  return res.status(404).json({ message: 'Post not found' });
 });
 
 app.listen(3000, () =>
